@@ -11,3 +11,4 @@ Update-css-node-tests.patch
 # deepin
 ddefiledialog_c.patch
 dde-file-dialog.patch
+make-heartbeat-should-return-a-value.patch

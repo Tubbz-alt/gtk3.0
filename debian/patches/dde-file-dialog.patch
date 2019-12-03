@@ -337,3 +337,4 @@ Last-Update: 2017-12-08
 +SUBDIRS = gdk a11y css tools
  
  -include $(top_srcdir)/git.mk
+
