@@ -13,3 +13,4 @@ ddefiledialog_c.patch
 dde-file-dialog.patch
 make-heartbeat-should-return-a-value.patch
 deepin-fix-ddefiledialog-crash.patch
+gdk-wayland-surface-destroy-gdk.patch
