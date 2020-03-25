@@ -1,0 +1,39 @@
+Index: gtk+3.0-3.24.5/gdk/wayland/gdkwindow-wayland.c
+===================================================================
+--- gtk+3.0-3.24.5.orig/gdk/wayland/gdkwindow-wayland.c
++++ gtk+3.0-3.24.5/gdk/wayland/gdkwindow-wayland.c
+@@ -1075,11 +1075,10 @@ gdk_wayland_window_maybe_configure (GdkW
+   gboolean is_xdg_popup;
+   gboolean is_visible;
+ 
+-  if (window->width == width &&
++  /* if (window->width == width &&
+       window->height == height &&
+       impl->scale == scale)
+-    return;
+-
++    return; */
+   /* For xdg_popup using an xdg_positioner, there is a race condition if
+    * the application tries to change the size after it's mapped, but before
+    * the initial configure is received, so hide and show the surface again
+@@ -4437,10 +4436,18 @@ gdk_wayland_window_set_shadow_width (Gdk
+     return;
+ 
+   /* Reconfigure window to keep the same window geometry */
+-  new_width = window->width -
++if (!(impl->margin_left || impl->margin_right || impl->margin_top || impl->margin_bottom) && (left || right || top || bottom))
++{
++   new_width = window->width;
++   new_height = window->height; 
++}
++else
++{
++   new_width = window->width -
+     (impl->margin_left + impl->margin_right) + (left + right);
+-  new_height = window->height -
++   new_height = window->height -
+     (impl->margin_top + impl->margin_bottom) + (top + bottom);
++}
+   gdk_wayland_window_maybe_configure (window, new_width, new_height, impl->scale);
+ 
+   impl->margin_left = left;
