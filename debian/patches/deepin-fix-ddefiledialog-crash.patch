@@ -1,0 +1,21 @@
+From: wangzichong <wangzichong@deepin.com>
+Subject: fix crash issue while calling file-open-dialog
+
+Fix the issue which leads to AP crash while the AP calls file-open-dialog
+
+Bug: https://pms.deepin.cn/bug-view-10695.html
+Last-Update: 2020-01-02
+
+Index: gtk+3.0-3.24.5.3/gtk/ddefiledialog.c
+===================================================================
+--- gtk+3.0-3.24.5.3.orig/gtk/ddefiledialog.c
++++ gtk+3.0-3.24.5.3/gtk/ddefiledialog.c
+@@ -436,8 +436,6 @@ static void d_show_dbus_filedialog(GtkWi
+         return;
+ 
+     XSetTransientForHint(gdk_x11_get_default_xdisplay(), dbus_dialog_winId, GDK_WINDOW_XID(gtk_widget_get_window(widget_ghost)));
+-    XSetInputFocus(gdk_x11_get_default_xdisplay(), dbus_dialog_winId, RevertToPointerRoot, CurrentTime);
+-    XRaiseWindow(gdk_x11_get_default_xdisplay(), dbus_dialog_winId);
+ }
+ 
+ static void d_hide_dbus_filedialog(GtkWidget *widget_ghost)
